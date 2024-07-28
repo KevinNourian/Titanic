@@ -10,6 +10,21 @@ def MissingValues(data):
     return missing_values
 
 
-def DuplicateValues(data):
+def Duplicates(data):
 
     print(f'Duplicates: {data.duplicated().sum()}, ({np.round(100*data.duplicated().sum()/len(data),1)}%)')
+
+
+def Outliers(data):
+    
+    numeric_data = data.select_dtypes(include=['number'])
+
+    Q1 = numeric_data.quantile(0.25)
+    Q3 = numeric_data.quantile(0.75)
+
+    IQR = Q3 - Q1
+
+    outliers = (numeric_data < (Q1 - 1.5 * IQR)) | (numeric_data > (Q3 + 1.5 * IQR))
+
+    outlier_counts = outliers.sum()
+    print (outlier_counts)
