@@ -4,10 +4,22 @@ import numpy as np
 def MissingValues(data):
     
     name_cols=data.columns[data.isna().any()].tolist()
-    missing_values=pd.DataFrame(data[name_cols].isna().sum(), columns=['Number_missing'])
-    missing_values['Percentage_missing']=np.round(100*missing_values['Number_missing']/len(data),2)
+    missing_values=pd.DataFrame(data[name_cols].isna().sum(), columns=['NumberMissing'])
+    missing_values['PercentageMissing']=np.round(100*missing_values['NumberMissing']/len(data),2)
     
     return missing_values
+
+
+def UniqueValues(data):
+    
+    categorical_columns_list = data.select_dtypes(include=['object']).columns.tolist()
+    unique_values_dic = {}
+
+    for column in categorical_columns_list:
+        unique_values_dic[column] = len(data[column].unique())
+
+    for column, values in unique_values_dic.items():
+        print(f'Unique Values in {column}: {values}')
 
 
 def Duplicates(data):
