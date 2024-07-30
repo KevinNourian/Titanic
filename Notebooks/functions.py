@@ -16,7 +16,7 @@ def UniqueValues(data):
     unique_values_dic = {}
 
     for column in categorical_columns_list:
-        unique_values_dic[column] = len(data[column].unique())
+        unique_values_dic[column] = data[column].nunique()
 
     for column, values in unique_values_dic.items():
         print(f'Unique Values in {column}: {values}')
