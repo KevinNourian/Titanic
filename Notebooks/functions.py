@@ -1,6 +1,10 @@
 import pandas as pd
 import numpy as np
+import seaborn as sns
+import matplotlib as mpl
+import matplotlib.pyplot as plt
 
+##########################################################################################################
 # Missing Values
 def MissingValues(data):
     
@@ -10,7 +14,7 @@ def MissingValues(data):
     
     return missing_values
 
-
+##########################################################################################################
 # Unique Values
 def UniqueValues(data):
     
@@ -23,13 +27,13 @@ def UniqueValues(data):
     for column, values in unique_values_dic.items():
         print(f'Unique Values in {column}: {values}')
 
-
+##########################################################################################################
 # Duplicates
 def Duplicates(data):
 
     print(f'Duplicates: {data.duplicated().sum()}, ({np.round(100*data.duplicated().sum()/len(data),1)}%)')
 
-
+##########################################################################################################
 # Outliers
 def Outliers(data):
     
@@ -45,7 +49,7 @@ def Outliers(data):
     outlier_counts = outliers.sum()
     print (outlier_counts)
 
-
+##########################################################################################################
 # Side-by-Side Bar Plots
 def side_by_side_barplot(data_1, data_2, title_1, title_2, labels, feature, y, palette):
 
@@ -81,3 +85,38 @@ def side_by_side_barplot(data_1, data_2, title_1, title_2, labels, feature, y, p
     sns.despine()
 
     plt.show()    
+
+##########################################################################################################
+# Side-by-Side Count Plot
+def side_by_side_countplot(data_1, data_2, title_1, title_2, labels, feature, palette):
+
+    plt.rcParams.update(params)
+    fig, ax = plt.subplots(1, 2, figsize=(15, 7))  
+
+
+    sns.countplot(
+        ax=ax[0],  
+        x="HomePlanet",
+        hue="Transported",
+        data=train,
+        palette=[color_1, color_2]
+    )
+    ax[0].set_xlabel("Home Planet")
+    ax[0].set_title("Transported by Home Planet", fontsize=size)
+    ax[0].legend(title='Transported', loc='upper right')
+
+
+    sns.countplot(
+        ax=ax[1], 
+        x="Destination",
+        hue="Transported",
+        data=train,
+        palette=[color_1, color_2]
+    )
+    ax[1].set_xlabel("Destination Planet")
+    ax[1].set_title("Transported by Destination Planet", fontsize=size)
+    ax[1].legend(title='Transported', loc='upper right')
+
+    plt.tight_layout()
+
+    plt.show()
