@@ -120,3 +120,14 @@ def side_by_side_countplot(data_1, data_2, title_1, title_2, labels, feature, pa
     plt.tight_layout()
 
     plt.show()
+    ##########################################################################################################
+    
+def passenger_distribution(data, feature, Boolean):
+    
+    transported = data[data['Transported'] == Boolean]
+    transported_feature = transported[feature].value_counts()
+
+    transported_feature_true = transported_feature.get(1, 0)
+    transported_feature_false = transported_feature.get(0, 0)
+
+    return transported_feature_true, transported_feature_false
