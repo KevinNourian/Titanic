@@ -4,8 +4,7 @@ import seaborn as sns
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 
-##########################################################################################################
-# Missing Values
+
 def MissingValues(data):
     
     name_cols=data.columns[data.isna().any()].tolist()
@@ -14,8 +13,8 @@ def MissingValues(data):
     
     return missing_values
 
-##########################################################################################################
-# Unique Values
+
+
 def UniqueValues(data):
     
     categorical_columns_list = data.select_dtypes(include=['object']).columns.tolist()
@@ -27,14 +26,14 @@ def UniqueValues(data):
     for column, values in unique_values_dic.items():
         print(f'Unique Values in {column}: {values}')
 
-##########################################################################################################
-# Duplicates
+
+
 def Duplicates(data):
 
     print(f'Duplicates: {data.duplicated().sum()}, ({np.round(100*data.duplicated().sum()/len(data),1)}%)')
 
-##########################################################################################################
-# Outliers
+
+
 def Outliers(data):
     
     numeric_data = data.select_dtypes(include=['number'])
@@ -49,8 +48,8 @@ def Outliers(data):
     outlier_counts = outliers.sum()
     print (outlier_counts)
 
-##########################################################################################################
-# Side-by-Side Bar Plots
+
+
 def side_by_side_barplot(data_1, data_2, title_1, title_2, labels, feature, y, palette):
 
     '''
@@ -86,8 +85,8 @@ def side_by_side_barplot(data_1, data_2, title_1, title_2, labels, feature, y, p
 
     plt.show()    
 
-##########################################################################################################
-# Side-by-Side Count Plot
+
+
 def side_by_side_countplot(data_1, data_2, title_1, title_2, labels, feature, palette):
 
     plt.rcParams.update(params)
@@ -120,7 +119,7 @@ def side_by_side_countplot(data_1, data_2, title_1, title_2, labels, feature, pa
     plt.tight_layout()
 
     plt.show()
-    ##########################################################################################################
+   
     
 def passenger_distribution(data, feature, Boolean):
     
