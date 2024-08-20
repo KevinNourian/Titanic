@@ -130,3 +130,10 @@ def passenger_distribution(data, feature, Boolean):
     transported_feature_false = transported_feature.get(0, 0)
 
     return transported_feature_true, transported_feature_false
+
+
+def log_transform(data, col):
+    data[col] = np.log1p(data[col])
+    return data
+
+
