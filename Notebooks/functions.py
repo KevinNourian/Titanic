@@ -84,7 +84,6 @@ def side_by_side_barplot(data_1, data_2, title_1, title_2, labels, feature, y, p
     '''
 
     plt.rcParams.update(params)
-
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(20, 8))
 
     sns.barplot(data=data_1, x=feature, y=y, ax=ax1, palette=palette)
@@ -231,3 +230,39 @@ def create_heatmap(data, title):
     )
     plt.xlabel("")
     plt.ylabel("")
+
+
+def side_by_side_piechart(data_1, data_2, title_1, title_2, color_1, color_2, lables, size):
+
+    plt.rcParams.update(params)
+    fig, ax = plt.subplots(1, 2, figsize=(25, 15))
+
+    ax[0].pie(
+        data_1
+        startangle=90,
+        colors = [color_1, color_2],
+        autopct="%0.1f%%",
+        wedgeprops={"edgecolor": "black"},
+        textprops={"fontsize": size*1.5},
+        labels=lables
+        
+    )
+
+    ax[1].pie(
+        data_2,
+        startangle=90,
+        colors = [color_1, color_2],
+        autopct="%0.1f%%",
+        wedgeprops={"edgecolor": "black"},
+        textprops={"fontsize": size*1.5},
+        labels=lables
+    
+    )
+
+    ax[0].set_title(title_1, fontsize=size*2)
+    ax[1].set_title(title_2, fontsize=size*2)
+
+
+    plt.tight_layout()
+    plt.subplots_adjust(wspace=1, hspace=1.0) 
+    plt.show()
