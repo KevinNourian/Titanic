@@ -5,6 +5,32 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 
 
+
+## **Figure Parameters**
+size = 20
+
+params = {
+    "font.family": "Times New Roman",
+    "font.size": size,
+    "axes.labelsize": size,
+    "xtick.labelsize": size * 0.75,
+    "ytick.labelsize": size * 0.75,
+    "figure.titlesize": size * 1.5,
+    "axes.titlesize": size * 1.5,
+    "axes.titlepad": size,
+    "axes.labelpad": size - 10,
+    "lines.linewidth": 2,
+    "axes.spines.top": False,
+    "axes.spines.right": False,
+    "axes.spines.left": False,
+    "axes.spines.bottom": False,
+    "legend.fontsize": size,
+    "figure.figsize": (10, 6),
+}
+
+
+
+### **Missing Values**
 def MissingValues(data):
     
     name_cols=data.columns[data.isna().any()].tolist()
@@ -15,6 +41,7 @@ def MissingValues(data):
 
 
 
+### **Unique Values**
 def UniqueValues(data):
     
     categorical_columns_list = data.select_dtypes(include=['object']).columns.tolist()
@@ -28,19 +55,19 @@ def UniqueValues(data):
 
 
 
+### **Duplicates**
 def Duplicates(data):
 
     print(f'Duplicates: {data.duplicated().sum()}, ({np.round(100*data.duplicated().sum()/len(data),1)}%)')
 
 
 
+### **Outliers**
 def Outliers(data):
     
     numeric_data = data.select_dtypes(include=['number'])
-
     Q1 = numeric_data.quantile(0.25)
     Q3 = numeric_data.quantile(0.75)
-
     IQR = Q3 - Q1
 
     outliers = (numeric_data < (Q1 - 1.5 * IQR)) | (numeric_data > (Q3 + 1.5 * IQR))
@@ -49,7 +76,7 @@ def Outliers(data):
     print (outlier_counts)
 
 
-
+### **Side-by-Side Barplot**
 def side_by_side_barplot(data_1, data_2, title_1, title_2, labels, feature, y, palette):
 
     '''
@@ -87,40 +114,40 @@ def side_by_side_barplot(data_1, data_2, title_1, title_2, labels, feature, y, p
 
 
 
-def side_by_side_countplot(data_1, data_2, title_1, title_2, labels, feature, palette):
+### **Side-by-Side Countplot**
+def side_by_side_countplot(data_1, data_2, feature, title_1, title_2, labels, order_1, order_2, color_1, color_2):
 
     plt.rcParams.update(params)
-    fig, ax = plt.subplots(1, 2, figsize=(15, 7))  
+    fig, ax = plt.subplots(1, 2, figsize=(15, 7))
 
-
+    homeplanet_order = data_1[feature].value_counts().index
     sns.countplot(
-        ax=ax[0],  
-        x="HomePlanet",
-        hue="Transported",
-        data=train,
-        palette=[color_1, color_2]
+        ax=ax[0],
+        x=feature,
+        data=data_1,
+        order=order_1,
+        palette=[color_1]
     )
-    ax[0].set_xlabel("Home Planet")
-    ax[0].set_title("Transported by Home Planet", fontsize=size)
-    ax[0].legend(title='Transported', loc='upper right')
+    ax[0].set_xlabel(labels)
+    ax[0].set_title(title_1, fontsize=size)
 
-
+    homeplanet_order = data_2[feature].value_counts().index
     sns.countplot(
-        ax=ax[1], 
-        x="Destination",
-        hue="Transported",
-        data=train,
-        palette=[color_1, color_2]
+        ax=ax[1],
+        x=feature,
+        data=data_2,
+        order=order_2,
+        palette=[color_2]
     )
-    ax[1].set_xlabel("Destination Planet")
-    ax[1].set_title("Transported by Destination Planet", fontsize=size)
-    ax[1].legend(title='Transported', loc='upper right')
+    ax[1].set_xlabel(labels)
+    ax[1].set_title(title_2, fontsize=size)
+
 
     plt.tight_layout()
-
     plt.show()
    
-    
+
+
 def passenger_distribution(data, feature, Boolean):
     
     transported = data[data['Transported'] == Boolean]
@@ -132,8 +159,75 @@ def passenger_distribution(data, feature, Boolean):
     return transported_feature_true, transported_feature_false
 
 
+
+### **Log Transformation**
 def log_transform(data, col):
     data[col] = np.log1p(data[col])
     return data
 
 
+
+### **Create Plot MI Scores**
+def create_plot_mi_scores(features, mi_scores):
+    
+    '''
+    Creates a plot of mutual information scores.
+    '''
+
+    plt.rcParams.update({'figure.autolayout': True}) 
+
+    scores = pd.Series(mi_scores, name="MI Scores", index=features.columns)
+    scores = scores.sort_values(ascending=False)
+
+    plt.figure(figsize=(15, 6))
+    scores.plot(kind="line", marker='o')
+
+    plt.grid(True, which='both', linestyle='--', linewidth=0.5)
+
+    plt.title("Mutual Information Scores")
+    plt.xlabel("Feature")
+    plt.ylabel("MI Score")
+
+    plt.xticks(ticks=range(len(scores)), labels=scores.index, rotation=45, ha='right')
+
+    plt.tight_layout()
+
+    plt.show()
+
+
+
+### **Create Heatmap**
+def create_heatmap(data, title):
+
+    '''
+    Creates a Seaborn heatmap.
+    '''
+
+    plt.rcParams.update(params)
+    corr = data.corr()
+
+    mask = np.triu(np.ones_like(corr, dtype=bool))
+
+    f, ax = plt.subplots(figsize=(25, 25))
+
+    cmap = sns.diverging_palette(230, 10, as_cmap=True)
+    heatmap = sns.heatmap(
+        corr,
+        mask=mask,
+        vmax=1,
+        vmin=-1,
+        center=0,
+        square=True,
+        linewidths=0.5,
+        cbar_kws={"shrink": 0.5},
+        annot=True,
+        cmap=plt.cm.Reds,
+    )
+
+    heatmap.set_title(
+        title,
+        fontdict={"fontsize": size},
+        pad=12,
+    )
+    plt.xlabel("")
+    plt.ylabel("")
