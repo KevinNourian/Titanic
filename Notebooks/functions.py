@@ -1,37 +1,8 @@
-import pandas as pd
-import numpy as np
-import seaborn as sns
-import matplotlib as mpl
-import matplotlib.pyplot as plt
-
-
-
-## **Figure Parameters**
-size = 20
-
-params = {
-    "font.family": "Times New Roman",
-    "font.size": size,
-    "axes.labelsize": size,
-    "xtick.labelsize": size * 0.75,
-    "ytick.labelsize": size * 0.75,
-    "figure.titlesize": size * 1.5,
-    "axes.titlesize": size * 1.5,
-    "axes.titlepad": size,
-    "axes.labelpad": size - 10,
-    "lines.linewidth": 2,
-    "axes.spines.top": False,
-    "axes.spines.right": False,
-    "axes.spines.left": False,
-    "axes.spines.bottom": False,
-    "legend.fontsize": size,
-    "figure.figsize": (10, 6),
-}
-
-
-
-### **Missing Values**
 def MissingValues(data):
+
+    """
+        Calculates the number and percentage of missing values for each column in a DataFrame.
+    """
     
     name_cols=data.columns[data.isna().any()].tolist()
     missing_values=pd.DataFrame(data[name_cols].isna().sum(), columns=['NumberMissing'])
@@ -41,8 +12,12 @@ def MissingValues(data):
 
 
 
-### **Unique Values**
+
 def UniqueValues(data):
+
+    """
+    Prints the number of unique values for each categorical column in the DataFrame.
+    """
     
     categorical_columns_list = data.select_dtypes(include=['object']).columns.tolist()
     unique_values_dic = {}
@@ -55,16 +30,24 @@ def UniqueValues(data):
 
 
 
-### **Duplicates**
-def Duplicates(data):
+
+def duplicates(data):
+
+    """
+    Prints the number and percentage of duplicate rows in the DataFrame.
+    """
 
     print(f'Duplicates: {data.duplicated().sum()}, ({np.round(100*data.duplicated().sum()/len(data),1)}%)')
 
 
 
-### **Outliers**
-def Outliers(data):
-    
+
+def outliers(data):
+
+    """
+    Prints the count of outliers in each numerical column of the DataFrame based on the IQR method.
+    """
+
     numeric_data = data.select_dtypes(include=['number'])
     Q1 = numeric_data.quantile(0.25)
     Q3 = numeric_data.quantile(0.75)
@@ -76,12 +59,13 @@ def Outliers(data):
     print (outlier_counts)
 
 
-### **Side-by-Side Barplot**
-def side_by_side_barplot(data_1, data_2, title_1, title_2, labels, feature, y, palette):
 
-    '''
+
+def sidebyside_barplot(data_1, data_2, title_1, title_2, labels, feature, y, palette):
+
+    """
     Creates a side-by-side bar plot comparing two datasets.
-    '''
+    """
 
     plt.rcParams.update(params)
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(20, 8))
@@ -113,8 +97,12 @@ def side_by_side_barplot(data_1, data_2, title_1, title_2, labels, feature, y, p
 
 
 
-### **Side-by-Side Countplot**
-def side_by_side_countplot(data_1, data_2, feature, title_1, title_2, labels, order_1, order_2, color_1, color_2):
+
+def sidebyside_countplot(data_1, data_2, feature, title_1, title_2, labels, order_1, order_2, color_1, color_2):
+
+    """
+    Plots side-by-side count plots for a specified feature from two datasets using different titles, orders, and colors.
+    """
 
     plt.rcParams.update(params)
     fig, ax = plt.subplots(1, 2, figsize=(15, 7))
@@ -144,7 +132,62 @@ def side_by_side_countplot(data_1, data_2, feature, title_1, title_2, labels, or
 
     plt.tight_layout()
     plt.show()
-   
+
+
+
+
+def combined_countplot(data_1, data_2, feature, title, order, color_1, color_2, labels):
+
+    """
+    Creates a combined count plot with data from two datasets, distinguishing categories using different colors.
+    """
+
+    combined_data = pd.concat([data_1, data_2], axis=0)
+
+    plt.figure(figsize=(10, 7))
+
+    sns.countplot(
+        data=combined_data,
+        x=feature,
+        hue='Transported',
+        order=order,
+        palette=[color_1, color_2]
+    )
+
+    plt.xlabel(labels)
+    plt.ylabel('Count')
+    plt.title(title)
+
+    plt.tight_layout()
+    plt.show()
+
+
+
+
+def piechart(data, title, colors, labels, size=size):
+
+    """
+    Plots a pie chart with specified data, colors, labels, and title.
+    """
+
+    fig, axes = plt.subplots(1, 1, figsize=(10, 7))
+
+    axes.set_title(title, fontsize=size * 1.5, pad=size)
+    axes.pie(
+        data,
+        colors=colors,
+        labels=labels,
+        startangle=90,
+        autopct="%0.2f%%",
+        wedgeprops={"edgecolor": "black"},
+        textprops={"fontsize": size + 5},
+    )
+
+    plt.tight_layout()
+
+    plt.show()
+
+
 
 
 def passenger_distribution(data, feature, Boolean):
@@ -159,14 +202,20 @@ def passenger_distribution(data, feature, Boolean):
 
 
 
-### **Log Transformation**
+
 def log_transform(data, col):
+
+    """
+    Applies a log transformation (log1p) to the specified column in the DataFrame.
+    """
+
     data[col] = np.log1p(data[col])
+
     return data
 
 
 
-### **Create Plot MI Scores**
+
 def create_plot_mi_scores(features, mi_scores):
     
     '''
@@ -195,7 +244,7 @@ def create_plot_mi_scores(features, mi_scores):
 
 
 
-### **Create Heatmap**
+
 def create_heatmap(data, title):
 
     '''
@@ -232,13 +281,19 @@ def create_heatmap(data, title):
     plt.ylabel("")
 
 
-def side_by_side_piechart(data_1, data_2, title_1, title_2, color_1, color_2, lables, size):
+
+
+def sidebyside_piechart(data_1, data_2, title_1, title_2, color_1, color_2, lables, size=size):
+
+    """
+    Plots two side-by-side pie charts with specified titles, colors, and labels.
+    """
 
     plt.rcParams.update(params)
     fig, ax = plt.subplots(1, 2, figsize=(25, 15))
 
     ax[0].pie(
-        data_1
+        data_1,
         startangle=90,
         colors = [color_1, color_2],
         autopct="%0.1f%%",
