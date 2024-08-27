@@ -1,3 +1,12 @@
+import pandas as pd
+import numpy as np
+import seaborn as sns
+import matplotlib as mpl
+import matplotlib.pyplot as plt
+
+
+
+
 def MissingValues(data):
 
     """
@@ -164,7 +173,7 @@ def combined_countplot(data_1, data_2, feature, title, order, color_1, color_2, 
 
 
 
-def piechart(data, title, colors, labels, size=size):
+def piechart(data, title, colors, labels, size):
 
     """
     Plots a pie chart with specified data, colors, labels, and title.
@@ -283,7 +292,7 @@ def create_heatmap(data, title):
 
 
 
-def sidebyside_piechart(data_1, data_2, title_1, title_2, color_1, color_2, lables, size=size):
+def sidebyside_piechart(data_1, data_2, title_1, title_2, color_1, color_2, lables, size):
 
     """
     Plots two side-by-side pie charts with specified titles, colors, and labels.
