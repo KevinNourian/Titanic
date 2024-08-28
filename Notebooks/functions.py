@@ -6,6 +6,28 @@ import matplotlib.pyplot as plt
 
 
 
+size = 20
+params = {
+    "font.family": "Times New Roman",
+    "font.size": size,
+    "axes.labelsize": size,
+    "xtick.labelsize": size * 0.75,
+    "ytick.labelsize": size * 0.75,
+    "figure.titlesize": size * 1.5,
+    "axes.titlesize": size * 1.5,
+    "axes.titlepad": size,
+    "axes.labelpad": size - 10,
+    "lines.linewidth": 2,
+    "axes.spines.top": False,
+    "axes.spines.right": False,
+    "axes.spines.left": False,
+    "axes.spines.bottom": False,
+    "legend.fontsize": size,
+    "figure.figsize": (10, 6),
+}
+
+
+
 
 def MissingValues(data):
 
@@ -107,6 +129,26 @@ def sidebyside_barplot(data_1, data_2, title_1, title_2, labels, feature, y, pal
 
 
 
+def countplot(data, x, hue, palette, order, title, x_label, y_label, legend_title):
+
+
+    plt.rcParams.update(params)
+    plt.figure(figsize=(10, 6))
+
+    sns.countplot(data=data, x=x, hue= hue, palette=palette, order=order)
+    plt.title(title)
+    plt.xlabel(x_label)
+    plt.ylabel(y_label)
+    plt.xticks(rotation=45)
+    plt.legend(title= legend_title)
+    plt.tight_layout()
+
+    plt.show()
+
+
+
+
+
 def sidebyside_countplot(data_1, data_2, feature, title_1, title_2, labels, order_1, order_2, color_1, color_2):
 
     """
@@ -144,33 +186,33 @@ def sidebyside_countplot(data_1, data_2, feature, title_1, title_2, labels, orde
 
 
 
-
-def combined_countplot(data_1, data_2, feature, title, order, color_1, color_2, labels):
-
+def combined_countplot(data_1, data_2, feature, title, order, color_1, color_2, labels, label_fontsize,
+                       title_fontsize, hue_order):
     """
     Creates a combined count plot with data from two datasets, distinguishing categories using different colors.
     """
 
     combined_data = pd.concat([data_1, data_2], axis=0)
 
+    plt.rcParams.update(params)
     plt.figure(figsize=(10, 7))
+
 
     sns.countplot(
         data=combined_data,
         x=feature,
         hue='Transported',
         order=order,
-        palette=[color_1, color_2]
+        palette=[color_1, color_2],
+        hue_order = hue_order
     )
 
-    plt.xlabel(labels)
-    plt.ylabel('Count')
-    plt.title(title)
+    plt.xlabel(labels, fontsize=label_fontsize)
+    plt.ylabel('Count', fontsize=label_fontsize)
+    plt.title(title, fontsize=title_fontsize)
 
     plt.tight_layout()
     plt.show()
-
-
 
 
 def piechart(data, title, colors, labels, size):
