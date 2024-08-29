@@ -92,45 +92,33 @@ def outliers(data):
 
 
 
-def sidebyside_barplot(data_1, data_2, title_1, title_2, labels, feature, y, palette):
+def passenger_distribution(data, feature, Boolean):
+    transported = data[data['Transported'] == Boolean]
+    transported_feature = transported[feature].value_counts()
 
+    transported_feature_true = transported_feature.get(1, 0)
+    transported_feature_false = transported_feature.get(0, 0)
+
+    return transported_feature_true, transported_feature_false
+
+
+
+
+def log_transform(data, col):
     """
-    Creates a side-by-side bar plot comparing two datasets.
+    Applies a log transformation (log1p) to the specified column in the DataFrame.
     """
 
-    plt.rcParams.update(params)
-    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(20, 8))
+    data[col] = np.log1p(data[col])
 
-    sns.barplot(data=data_1, x=feature, y=y, ax=ax1, palette=palette)
-    sns.barplot(data=data_2, x=feature, y=y, ax=ax2, palette=palette)
-
-    ax1.set_xlabel(feature)
-    ax1.set_ylabel(y)
-    ax2.set_xlabel(feature)
-    ax2.set_ylabel(y)
-
-    total_count1 = data_1[y].sum()
-    for container in ax1.containers:
-        labels = [f'{(v.get_height() / total_count1 * 100):.1f}%' for v in container]
-        ax1.bar_label(container, labels=labels, size=size)
-
-    total_count2 = data_2[y].sum()
-    for container in ax2.containers:
-        labels = [f'{(v.get_height() / total_count2 * 100):.1f}%' for v in container]
-        ax2.bar_label(container, labels=labels, size=size)
-
-    ax1.set_title(title_1)
-    ax2.set_title(title_2)
-
-    sns.despine()
-
-    plt.show()    
-
-
+    return data
 
 
 def countplot(data, x, hue, palette, order, title, x_label, y_label, legend_title):
 
+    """
+    Creates a count plot with customized appearance including axis labels, title, and legend.
+    """
 
     plt.rcParams.update(params)
     plt.figure(figsize=(10, 6))
@@ -215,6 +203,45 @@ def combined_countplot(data_1, data_2, feature, title, order, color_1, color_2, 
     plt.show()
 
 
+
+
+def sidebyside_barplot(data_1, data_2, title_1, title_2, labels, feature, y, palette):
+
+    """
+    Creates a side-by-side bar plot comparing two datasets.
+    """
+
+    plt.rcParams.update(params)
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(20, 8))
+
+    sns.barplot(data=data_1, x=feature, y=y, ax=ax1, palette=palette)
+    sns.barplot(data=data_2, x=feature, y=y, ax=ax2, palette=palette)
+
+    ax1.set_xlabel(feature)
+    ax1.set_ylabel(y)
+    ax2.set_xlabel(feature)
+    ax2.set_ylabel(y)
+
+    total_count1 = data_1[y].sum()
+    for container in ax1.containers:
+        labels = [f'{(v.get_height() / total_count1 * 100):.1f}%' for v in container]
+        ax1.bar_label(container, labels=labels, size=size)
+
+    total_count2 = data_2[y].sum()
+    for container in ax2.containers:
+        labels = [f'{(v.get_height() / total_count2 * 100):.1f}%' for v in container]
+        ax2.bar_label(container, labels=labels, size=size)
+
+    ax1.set_title(title_1)
+    ax2.set_title(title_2)
+
+    sns.despine()
+
+    plt.show()    
+
+
+
+
 def piechart(data, title, colors, labels, size):
 
     """
@@ -237,33 +264,6 @@ def piechart(data, title, colors, labels, size):
     plt.tight_layout()
 
     plt.show()
-
-
-
-
-def passenger_distribution(data, feature, Boolean):
-    
-    transported = data[data['Transported'] == Boolean]
-    transported_feature = transported[feature].value_counts()
-
-    transported_feature_true = transported_feature.get(1, 0)
-    transported_feature_false = transported_feature.get(0, 0)
-
-    return transported_feature_true, transported_feature_false
-
-
-
-
-def log_transform(data, col):
-
-    """
-    Applies a log transformation (log1p) to the specified column in the DataFrame.
-    """
-
-    data[col] = np.log1p(data[col])
-
-    return data
-
 
 
 
