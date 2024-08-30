@@ -32,7 +32,7 @@ params = {
 def MissingValues(data):
 
     """
-        Calculates the number and percentage of missing values for each column in a DataFrame.
+    Calculates the number and percentage of missing values for each column in a DataFrame.
     """
     
     name_cols=data.columns[data.isna().any()].tolist()
@@ -146,7 +146,7 @@ def sidebyside_countplot(data_1, data_2, feature, title_1, title_2, labels, orde
     plt.rcParams.update(params)
     fig, ax = plt.subplots(1, 2, figsize=(15, 7))
 
-    homeplanet_order = data_1[feature].value_counts().index
+    order_1 = data_1[feature].value_counts().index
     sns.countplot(
         ax=ax[0],
         x=feature,
@@ -157,7 +157,7 @@ def sidebyside_countplot(data_1, data_2, feature, title_1, title_2, labels, orde
     ax[0].set_xlabel(labels)
     ax[0].set_title(title_1, fontsize=size)
 
-    homeplanet_order = data_2[feature].value_counts().index
+    order_2 = data_2[feature].value_counts().index
     sns.countplot(
         ax=ax[1],
         x=feature,
@@ -176,6 +176,7 @@ def sidebyside_countplot(data_1, data_2, feature, title_1, title_2, labels, orde
 
 def combined_countplot(data_1, data_2, feature, title, order, color_1, color_2, labels, label_fontsize,
                        title_fontsize, hue_order):
+    
     """
     Creates a combined count plot with data from two datasets, distinguishing categories using different colors.
     """
