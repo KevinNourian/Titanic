@@ -381,10 +381,12 @@ def create_confusion_matrix(pipeline, X_test, y_test, color, title):
     '''
     Creates a confusion matrix plot.
     '''
+
     from sklearn.metrics import ConfusionMatrixDisplay
 
-    conf_matrix = ConfusionMatrixDisplay.from_estimator (pipeline, X_test, y_test, cmap=color)
+    plt.rcParams.update(params)
 
+    conf_matrix = ConfusionMatrixDisplay.from_estimator (pipeline, X_test, y_test, cmap=color)
     conf_matrix.ax_.set_xticks([0, 1])
     conf_matrix.ax_.set_xticklabels(["No", "Yes"])
     conf_matrix.ax_.set_yticks([0, 1])
@@ -415,6 +417,8 @@ def create_feature_importance(pipeline, classifier, preprocessor):
 
     print(feature_importance_df)
 
+
+
   
 def create_classification_report(pipeline, X_test, y_test):
     
@@ -428,4 +432,46 @@ def create_classification_report(pipeline, X_test, y_test):
     print(classification_report(y_test, y_predict))
 
     return y_predict
+
+
+def create_AUC(pipeline, X_test, y_test):
+
+    '''
+    Creates an AUC score.
+    '''
+
+    from sklearn.metrics import roc_auc_score
+    y_score = pipeline.predict_proba(X_test)[:, 1]
+    auc_score = roc_auc_score(y_test, y_score)
+
+    print(f'Area Under the Curve (AUC): {auc_score:.2f}')
+    
+    
+
+
+def create_ROC(pipeline, X_test, y_test):
+    
+    '''  
+    Creates a ROC curve.
+    '''
+
+    from sklearn.metrics import roc_curve, auc
+    plt.rcParams.update(params)
+
+    y_score = pipeline.predict_proba(X_test)[:, 1]
+    fpr, tpr, _ = roc_curve(y_test, y_score)
+    roc_auc = auc(fpr, tpr)
+
+    plt.figure()
+    plt.plot(fpr, tpr, color='darkorange', lw=2, label=f'ROC curve (area = {roc_auc:.2f})')
+    plt.plot([0, 1], [0, 1], color='navy', lw=2, linestyle='--')
+    plt.xlim([0.0, 1.0])
+    plt.ylim([0.0, 1.05])
+    plt.xlabel('False Positive Rate')
+    plt.ylabel('True Positive Rate')
+    plt.title('Receiver Operating Characteristic (ROC)')
+    plt.legend(loc='lower right')
+    plt.show()
+
+
 
