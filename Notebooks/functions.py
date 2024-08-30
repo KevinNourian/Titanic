@@ -372,3 +372,60 @@ def sidebyside_piechart(data_1, data_2, title_1, title_2, color_1, color_2, labl
     plt.tight_layout()
     plt.subplots_adjust(wspace=1, hspace=1.0) 
     plt.show()
+
+
+
+
+def create_confusion_matrix(pipeline, X_test, y_test, color, title):
+
+    '''
+    Creates a confusion matrix plot.
+    '''
+    from sklearn.metrics import ConfusionMatrixDisplay
+
+    conf_matrix = ConfusionMatrixDisplay.from_estimator (pipeline, X_test, y_test, cmap=color)
+
+    conf_matrix.ax_.set_xticks([0, 1])
+    conf_matrix.ax_.set_xticklabels(["No", "Yes"])
+    conf_matrix.ax_.set_yticks([0, 1])
+    conf_matrix.ax_.set_yticklabels(["No", "Yes"])
+
+    plt.title(title)
+    plt.show()
+
+
+
+
+def create_feature_importance(pipeline, classifier, preprocessor):
+
+    '''
+    Creates a DataFrame of feature importances.
+    '''
+    
+    model = pipeline.named_steps[classifier]
+
+    feature_names = pipeline.named_steps[preprocessor].get_feature_names_out()
+
+    importance = model.feature_importances_
+
+    feature_importance_df = pd.DataFrame({
+        'Feature': feature_names,
+        'Importance': importance
+    }).sort_values(by='Importance', ascending=False)
+
+    print(feature_importance_df)
+
+  
+def create_classification_report(pipeline, X_test, y_test):
+    
+    '''
+    Creates a classification report.
+    ''' 
+
+    from sklearn.metrics import classification_report
+    
+    y_predict = pipeline.predict(X_test)
+    print(classification_report(y_test, y_predict))
+
+    return y_predict
+
