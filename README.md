@@ -1,4 +1,4 @@
-![Alt_Text](https://github.com/KevinNourian/Stroke/blob/main/Image/Stroke.PNG)
+![Alt_Text](https://github.com/TuringCollegeSubmissions/knouri-ML.3/blob/main/Images/Titanic.PNG)
 # Project Files
 01 Overview.ipynb
 02 EDA.ipynb
@@ -9,7 +9,7 @@
 
 
 # Introduction
-In the year 2912 the interstellar Spaceship Titanic has collided with a spacetime anomaly. Some of the passengers were transported to an alternate dimension. In this analysis, I will use the records recovered from the spaceship’s computer system to predict which passengers were affected.
+In the year 2912 the interstellar spaceship Titanic has collided with a spacetime anomaly and some of the passengers were transported to an alternate dimension. In this analysis, I will use the records recovered from the spaceship’s computer system to predict which passengers were transported.
 
 # Dataset
 **Train file (spaceship_titanic_train.csv)** — Contains personal records of the passengers that would be used to build the machine learning model.
@@ -20,10 +20,17 @@ In the year 2912 the interstellar Spaceship Titanic has collided with a spacetim
 
 
 # Goal
-My goal is to get a high score on the Spaceship Titanic competition.
+My goal is to get a score above 79 on the Kaggles's Spaceship Titanic competition.
 
-# Notebooks Folder
-This folder contains the various versions of this project. 
+# Project Folder
+This folder contains 6 notebooks related to this project:
+1. Overview
+2. EDA
+3. Feature Engineering
+4. Missing Data Imputation
+5. Machine Learning
+6. Conclusions
+
 
 # Technical Requirements
 1. Exploratory data analysis
@@ -35,34 +42,29 @@ This folder contains the various versions of this project.
 
 
 # Standards
-> **Standard 1:** My standard for an acceptable accuracy score is approximately 80%. <BR>
+> **Standard 1:** My standard for an acceptable accuracy score is 79%. <BR>
 > **Standard 2:** My standard for colinnearity is a Pearson correlation coefficient of approximately 0.8. <BR> 
 
 # Biases
-The main bias is that approximately 25% of the data is missing. Every feature except the PassengerId feature has over 2% missing data. 
+The main bias is that some data is missing. Every feature except the PassengerId has over 2% missing data. I tried various imputing techniques to address this issue.
 
 # Conclusions
->* **The Analysis of the Data:** I reviewed over 5,000 datapoint related to patients with stroke. <br> 
->* **The Goal of the Project:** The goal of this project was to find a model that could predict if a patient is likely to have a stroke with a recall score of 0.75 or higher.<br>
->* **Models:** I utilized numerous models and numerous ways to hyperparameter tuning.  I chose two simple models, Logistic Regressin and Support Vector Machines. I chose two boosting classifiers, LGBM and XGB and two ensemble models: Random Forest Classifier and Gradient Boosting Classifier.<br>
->* **Encoding:** For categorical data, I tried both Label Encoding and One-Hot Encoding. I did not see significant differences. I chose Label Encoding since the resulting table was more readable.  <br>
->* **Imputing Missing Data:** For imputing missing data, I tried mean, median, zero and random imputers. I saw no signinficant difference between them in the predictions of my models. I chose Randmo Imputer, since it I thought with such little information about the participants, it makes no sense to make any judgments about their features.  <br>
->* **Feature Engineering and Hyperparameter Testing:** I tried feature engineering and hyperparameter testing with techniques such as Backward Elimination, SHAP and OPTUNA. Some, I included in this report and some I didn't for sake of brevity. None of the measures I utilized improved resutls significanlty.<br> 
->* **Support Vector Machines:** For a simple model and using only default hyperparameters, SVC was able to get better or similar results than any other model, including the more complex ones.<br>  
->* **Boosting Models:** Of the boosting models that I utilized, none of them performed better than SVC.
->* **Ensemble Models:** Of the ensemble models that I utilized, none of them performed better than SVC.
->* **Recommendation:** I am not able to make any medical recommendations based on this data. However, some obvious elements that I was sure would contribute to the risk of stroke such as smoking or BMI, turned out to be a very poor predictors. <br> 
+>* **The Analysis of the Data:** I reviewed approximately 8,700 datapoint related to passnegers on the Spaceship Titanic. <br> 
+>* **The Goal of the Project:** The goal of this project was to find a model that could predict if a passenger was transported to an alternative dimensions with an accuracy score over 0.79.<br>
+>* **Missing Data:** About 25% of the data was missing, however, I was able to impute some of this data using known data. For example, from Last Name of the passenger it was possible to impute some of the Home Planet and some of the Destination missing data.  <br>
+>* **Croygenic Sleep:** Passengers who were in Cryogenic Sleep during the trip were less likely to be transported.  <br>
+>* **Luxury Spending:** Passengers who spend money on luxury items like spa were more likely to be transported.  <br>
+>* **Models:** I utilized the following models: Logistic Regression, K Nearest Neighbors, Random Forest, Extreme Gradient Boosting (XGB), Light Gradient Boosting Machine (LGBM), Categorical Boosting (CatBoost). The boosting models gave the best performance. I used GridSearch CV with these three models. <br>
+>* **Extremet Gradient Boosting (XGB):** Best Cross Validation Score: 0.81. Best Test Score: 0.78. Modeling Time: 22 minutes   <br>
+>* **Light Gradient Boosting (LGBM):** Best Cross Validation Score: 0.81. Best Test Score: 0.79. Modeling Time: 2 minutes.  <br>
+>* **Categorical Boosting (CatBoost):** Best Cross Validation Score: 0.81. Best Test Score: 0.78. Modeling Time: 71 minutes.<br>
+>* **Final Model:** For my final model, I chose Light Gradient Boosting (LGbM) and it achieved a score of 0.80032 on the Kaggle Titanic Spaceship Competition.<br>
 
 # Suggestions for Improvement
->* **Domain Knowledge:** It is best if the data scientist has adequate domain knowledge on the topic of the analysis. I do not have any expertise in the medical field. There may be parts of the data that I have overlooked that may have been important and I may have given importance to parts that may have had little significance. <br>
->* **More Detailed Data:** The data provide only general information on patients. This information is not adequate to predict a disease as complex as stroke. Information such as family history, genetic markers, blood trace element markers and more are missing in this data. More detailed information could have helped make better predictions. <br>  
->* **Balance:** The data is heavely imbalanced. Of the more than 5,000 datapoints, only about 300 are related to stroke patients. This, in addition to inadequcy of the data as mentioned above adds to the complexity predictions.  <br>  
->* **Visualizations:** If I had more time, I would improve on the bar graphs to emphasize certain data by using specific colors.  <br>  
->* **Functions:** I modularized most of the code in this notebook but not all due to limitation of time.  <br>  
->* **Statistics:** Continue to improve my statistical knowledge to create better analyses.<br>
+>* **Domain Knowledge:** It is best if the data scientist has adequate domain knowledge on the topic of the analysis. I do not have any expertise in space travel or alternative dimensions. There may be parts of the data that I have overlooked that may have been important and I may have given importance to parts that may have had little significance. <br>
+>* **More Complete Data:** As mentioned earlier, there was missing data in every feature. Less missing data could have improved the performance of the models.<br>  
 >* **Pandas:** Continue to learn to utilize more optimized Pandas techniques and algorithms.<br>
 >* **Seaborn and Matplotlib:** Continue to improve my knowledge of Seaborn and Matplotlib for creating visualizations. <br>
 >* **Python Code:** Continue to write better and more efficient Python code. <br>
 >* **Clean Code:** Continue to adhere to the principles of writing clean code. <br>
 >* **Readability and Efficiency:** Continue to improve my skills to find the delicate balance between readability and efficiency in coding.<br>
->* **Functions File:** For my next project, I will create a file with my functions, separate from the notebook file, to keep the notebook as a more reasonable length.<br>

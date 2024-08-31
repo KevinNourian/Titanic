@@ -326,7 +326,7 @@ def create_heatmap(data, title):
 
     heatmap.set_title(
         title,
-        fontdict={"fontsize": size},
+        fontdict={"fontsize": size*1.5},
         pad=12,
     )
     plt.xlabel("")
@@ -474,5 +474,20 @@ def create_ROC(pipeline, X_test, y_test):
     plt.legend(loc='lower right')
     plt.show()
 
+
+
+
+def label_encoder(data, data_type):
+
+    '''
+    Encodes categorical columns using a label encoder.
+    '''
+    from sklearn.preprocessing import LabelEncoder
+    
+    label_encoder = LabelEncoder()
+    obj = data.dtypes == data_type
+    for col in list(obj[obj].index):
+        data[col] = label_encoder.fit_transform(data[col])
+    return data 
 
 
