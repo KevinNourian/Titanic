@@ -43,8 +43,8 @@ This folder contains 6 notebooks related to this project:
 
 
 # Standards
-> **Standard 1:** My standard for an acceptable accuracy score is 79%. <BR>
-> **Standard 2:** My standard for colinnearity is a Pearson correlation coefficient of approximately 0.8. <BR> 
+> **Standard 1:** Accuracy score 79% <BR>
+> **Standard 2:** Colinnearity (Pearson Correlation Coefficient) 0.80ss <BR> 
 
 # Biases
 The main bias is that some data is missing. Every feature except the PassengerId has over 2% missing data. I tried various imputing techniques to address this issue.
