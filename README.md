@@ -30,6 +30,7 @@ This folder contains 6 notebooks related to this project:
 4. Missing Data Imputation
 5. Machine Learning
 6. Conclusions
+7. Functions
 
 
 # Technical Requirements
