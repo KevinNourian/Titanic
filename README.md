@@ -44,10 +44,13 @@ This folder contains 6 notebooks related to this project:
 
 # Standards
 > **Standard 1:** Accuracy score 79% <BR>
-> **Standard 2:** Colinnearity (Pearson Correlation Coefficient) 0.80ss <BR> 
+> **Standard 2:** Colinnearity (Pearson Correlation Coefficient) 0.80 <BR> 
 
 # Biases
-The main bias is that some data is missing. Every feature except the PassengerId has over 2% missing data. I tried various imputing techniques to address this issue.
+The main bias as I can see it is caused by missing data. Every feature except the PassengerId has over 2% missing data. I tried various imputing techniques to address this issue.
+
+# Domain Knowledge
+I have no experience with space travel or alternate dimensions. I may have overlooked parts of the data that may have been most important and I may have given importance to parts that may have had little significance. 
 
 # Conclusions
 >* **The Analysis of the Data:** I reviewed approximately 8,700 datapoint related to passnegers on the Spaceship Titanic. <br> 
