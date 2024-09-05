@@ -1,12 +1,11 @@
 ![Alt_Text](https://github.com/TuringCollegeSubmissions/knouri-ML.3/blob/main/Images/Titanic.PNG)
 # Project Files
 01 Overview.ipynb
-02 EDA.ipynb
+02 Imputations.ipynb
 03 FeatureEngineering.ipynb
-04 Imputations.ipynb
+04 EDA.ipynb
 05 MachineLearning.ipynb
 06 Conclusions.ipynb
-
 
 # Introduction
 In the year 2912 the interstellar spaceship Titanic has collided with a spacetime anomaly and some of the passengers were transported to an alternate dimension. In this analysis, I will use the records recovered from the spaceship’s computer system to predict which passengers were transported.
