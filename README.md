@@ -58,6 +58,7 @@ I have no experience with space travel or alternate dimensions. I may have overl
 >* **Croygenic Sleep:** Passengers who were in Cryogenic Sleep during the trip were less likely to be transported. Cryogenic Sleep turend out to be a very important feature. <br>
 >* **Luxury Spending:** Passengers who spend money on luxury items like spa were more likely to be transported. Expenditure on luxury items turned out important in predicting Transportation.<br>
 >* **Models:** I utilized the following models: Logistic Regression, K Nearest Neighbors, Random Forest, Extreme Gradient Boosting (XGB), Light Gradient Boosting Machine (LGBM), Categorical Boosting (CatBoost). The boosting models gave the best performance. I used GridSearch CV with the three boosting models to tune their hyperparameters. <br>
+>* **Auto ML:** I utilized LazyPredict. Top 3 models were LGBM Classifier, XGB Classifier and Bagging Classifier. These results are comparable to the results that I obtained by manual machine learning, but the process was extremely slow at 4 hours. <br>
 >* **Extremet Gradient Boosting (XGB):** Best Cross Validation Score: 0.81. Best Test Score: 0.78. Modeling Time: 22 minutes   <br>
 >* **Light Gradient Boosting (LGBM):** Best Cross Validation Score: 0.81. Best Test Score: 0.79. Modeling Time: 2 minutes.  <br>
 >* **Categorical Boosting (CatBoost):** Best Cross Validation Score: 0.81. Best Test Score: 0.78. Modeling Time: 71 minutes.<br>
